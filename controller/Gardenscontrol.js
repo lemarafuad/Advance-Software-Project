@@ -1,12 +1,18 @@
-import gardens from "../models/gardens";
+import gardens from "../models/gardens.js";
 
 const creategarden = async(req,res)=>{
     try{
-    const{name ,location,area,admainEmail }=req.boady;
-    if (!name || ! location || !area || !admainEmail){
-        return res.status(400).json({ message: "garden name can't be empty!"  });
+      console.log('Request Headers:', req.headers);
+    console.log('Request Body:', req.body); // Log the entire request body
+
+    const { name, admainEmail, location, area, soiltype, sunlight, available } = req.body;
+
+    if (!name || !location || !area || !admainEmail || !soiltype || !sunlight || !available) {
+      console.log('Missing fields:', { name, admainEmail, location, area, soiltype, sunlight, available });
+      return res.status(400).json({ message: "All fields are required" });
     }
-    const garden = await gardens.create({name,location,area,admainEmail});
+
+    const garden = await gardens.create({ name, admainEmail, location, area, soiltype, sunlight, available });
     res.status(201).send(garden);
     console.log(`Add garden successfully`)
 } catch (error) {
@@ -18,24 +24,27 @@ const creategarden = async(req,res)=>{
 
 };
 
-const updategarden = async (req,res)=>{
-  try{
-    const idupdate = await gardens.update(req.boady,{ where : {id : req.params.id}});
+const updategarden = async (req, res) => {
+  try {
+    const [idupdate] = await gardens.update(req.body, { where: { id: req.params.id } });
     if (idupdate == 1) {
-      res.send({message: 'garden was updated successfully.'});
+      res.send({ message: 'Garden was updated successfully.' });
+    } else {
+      res.status(404).send({ message: `Cannot update garden with id=${req.params.id}. Garden not found!` });
     }
-
-  }catch(error){
-    res.send({
-      message: `Cannot update garden with id=${req.params.id}. please check the id you write !`});
+  } catch (error) {
+    res.status(500).send({
+      message: `Cannot update garden with id=${req.params.id}. Please check the id you provided!`,
+      error: error.message
+    });
   }
-
 };
 
 const getallgardens= async (req,res)=>{
   try{
   const allgardens= await gardens.findAll();
   res.status(200).send(allgardens);
+  console.log("Done get all garden");
   }catch(error){
     res.status(500).send({
       message: error.message || 'Some error occurred while retrieving gardens.'
@@ -43,23 +52,48 @@ const getallgardens= async (req,res)=>{
   }
 };
 
-const deletegarden= async (req,res)=> {
-try{
-  const iddelete = await gardens.destroy(req.boady,{ where : {id : req.params.id}});
-  if (iddelete == 1) {
-    res.send({message: 'garden was deleted successfully.'});
-}
-}
-catch(error)
-{
-  res.send({
-    message: `Cannot delete garden with id=${req.params.id}. please check the id you write !`});
-}
+const getgardenbyid= async (req,res)=>{
+  try{
+  const gardenid = await gardens.findByPk(req.params.id);
+  if(gardenid)
+    {
+      res.status(200).send(gardenid);
+    }
+    else{
+      res.status(404).send({
+        message: `Cannot find garden with id=${req.params.id}.`
+      });
+    }
+  }
+  catch(error){
+    res.status(500).send({
+      message: error.message || 'Error retrieving garden with id=' + req.params.id
+    });
+  }
+};
+
+const deletegarden = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const iddelete = await gardens.destroy({ where: { id: id } });
+    //Checks if a row was deleted
+    if (iddelete == 1) {
+      res.send({ message: 'Garden was deleted successfully.' });
+    } else {
+      res.status(404).send({ message: `Cannot delete garden with id=${id}. Garden not found!` });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: `Cannot delete garden with id=${req.params.id}. Please check the id you provided!`,
+      error: error.message
+    });
+  }
 };
 
 export {
   creategarden,
   getallgardens,
+  getgardenbyid,
   updategarden,
   deletegarden
 };

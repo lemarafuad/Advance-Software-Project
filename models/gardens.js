@@ -22,6 +22,18 @@ const gardens = sequelize.define('Gardens', {
   area: {
     type: DataTypes.STRING,
     allowNull: false,
+  }, 
+  soiltype: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sunlight: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  available: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   /// weather and climate 
 },
