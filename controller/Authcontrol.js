@@ -12,7 +12,7 @@ const createToken = (id, email) => {
 }
 
 export const signup = async(userData) => {    
- const { name, role, email, mobile_number, password} = userData;
+ const { name, role,status, email, mobile_number, password} = userData;
 
   try {
 
@@ -36,6 +36,7 @@ export const signup = async(userData) => {
     const newUser = await User.create({
       name,
       role,
+      status,
       email,
       mobile_number,
       password
@@ -66,11 +67,10 @@ export const login = async (userData) => {
       expiresIn: 7 * 24 * 60 * 60 // 1 week
     });
 
-    // make status active
-    /*console.log('user before', user );
-    user.status = 'active';
+    console.log('user before', user );
+    user.status = 'online';
     console.log('user after', user );
-    await user.save();*/
+    await user.save();
    
     return { token, success: true, role: user.role, message: `User ${user.name} logged in successfully`};
   } catch (error) {

@@ -10,7 +10,6 @@ Adminroutes.put('/gardens/:id',admincontrol.Admainupdategarden);
 Adminroutes.get('/gardens/:id',admincontrol.Admaingetgardenbyid);
 Adminroutes.delete('/gardens/:id',admincontrol.Admaindeletegarden);
 
-
 //For Crops
 Adminroutes.post('/crops',admincontrol.Admaincreatecrop);
 Adminroutes.get('/crops',admincontrol.Admaingetcrop);
@@ -24,9 +23,6 @@ Adminroutes.get('/guides',admincontrol.Admaingetguide);
 Adminroutes.put('/guides/:id',admincontrol.Admainupdateguide);
 Adminroutes.get('/guides/:id',admincontrol.Admaingetguidebyid);
 Adminroutes.delete('/guides/:id',admincontrol.Admaindeleteguide);
-
-
-
 
 
 

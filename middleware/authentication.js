@@ -35,13 +35,29 @@ const authenticate = async (req, res, next) => {
 
 // Role check middleware
 const checkAdminRole = (req, res, next) => {
-  const userRole = res.locals.user?.role;
-
+  const userRole = res.locals.User?.role;
+  const userstatus = res.locals.User?.status;
   if (userRole === 'admin') {
+    if (userstatus === 'online') {
     next();
+    }
+    else{
+      res.status(401).send("admin,please Login!");
+    }
   } else {
-    res.status(401).send("admin, You are Unauthorized!");
+    res.status(401).send("You are Unauthorized!");
   }
 };
+/*
+//او حطها جوا ال checkAdmin
+const checklogout=(req,res,next)=>{
+  const userRole = res.locals.User?.state;
+
+  if (userRole === 'active') {
+    next();
+  } else {
+    res.status(401).send("admin, You are logout !");
+  }
+}*/
 
 export { authenticate, checkAdminRole };

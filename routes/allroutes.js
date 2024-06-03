@@ -7,6 +7,5 @@ const router = express.Router();
 router.use("/admin", AdminRoutes,authenticate,checkAdminRole);
 router.use("/auth",AuthRoutes);
 
-
 export default router;
 
