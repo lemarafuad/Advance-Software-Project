@@ -53,7 +53,6 @@ const getguidebyid= async (req,res)=>{
     }
   };
   
-
 const updateguide = async (req, res) => {
     try {
       const [idupdate] = await guide.update(req.body, { where: { id: req.params.id } });
