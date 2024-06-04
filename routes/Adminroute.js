@@ -24,6 +24,12 @@ Adminroutes.put('/guides/:id',admincontrol.Admainupdateguide);
 Adminroutes.get('/guides/:id',admincontrol.Admaingetguidebyid);
 Adminroutes.delete('/guides/:id',admincontrol.Admaindeleteguide);
 
+//For Resource
+Adminroutes.post('/resources',admincontrol.Admaincreateresource);
+Adminroutes.get('/resources',admincontrol.Admaingetresource);
+Adminroutes.put('/resources/:id',admincontrol.Admainupdateresource);
+Adminroutes.get('/resources/:id',admincontrol.Admaingetresourcebyid);
+Adminroutes.delete('/resources/:id',admincontrol.Admaindeleteresource);
 
 
 export default Adminroutes;

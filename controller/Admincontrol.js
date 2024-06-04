@@ -1,6 +1,7 @@
 import * as Gardenscontrol from './Gardenscontrol.js';
 import * as Cropscontrol from './Cropcontrol.js';
 import * as Guidecontrol from './Guidecontrol.js';
+import * as Resourcecontrol from './Resourcecontrol.js';
 
 // For Gardens
 const Admaincreategarden= (req,res)=>{
@@ -53,6 +54,22 @@ const Admaingetguide= (req,res)=>{
     Guidecontrol.getallguide(req,res);;
 };
 
+//For Resources
+const Admaincreateresource= (req,res)=>{
+    Resourcecontrol.createresource(req,res);
+};
+const Admainupdateresource= (req,res)=>{
+    Resourcecontrol.updateresource(req,res);
+};
+const Admaindeleteresource= (req,res)=>{
+    Resourcecontrol.deleteresource(req,res);
+};
+const Admaingetresourcebyid= (req,res)=>{
+    Resourcecontrol.getresourcebyid(req,res);
+};
+const Admaingetresource= (req,res)=>{
+    Resourcecontrol.getallresource(req,res);;
+};
 
 export {
     //For Garden
@@ -73,7 +90,12 @@ export {
     Admaindeleteguide,
     Admaingetguide,
     Admaingetguidebyid,
-    
+    // For Crop
+    Admaincreateresource,
+    Admainupdateresource,
+    Admaindeleteresource,
+    Admaingetresource,
+    Admaingetresourcebyid,
 
 };
 
