@@ -4,5 +4,7 @@ import Users from './user.js';
 import Crops from './crop.js';
 import Guide from './guide.js';
 import Resource from './resource.js';
+import Volunteer from './volunteer.js';
+import Event from './event.js';
 
-export {Gardens,Crops,Users,Guide,Resource,sequelize};
+export {Gardens,Crops,Users,Guide,Resource, Volunteer,Event,sequelize};

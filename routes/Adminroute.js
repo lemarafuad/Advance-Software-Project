@@ -31,5 +31,18 @@ Adminroutes.put('/resources/:id',admincontrol.Admainupdateresource);
 Adminroutes.get('/resources/:id',admincontrol.Admaingetresourcebyid);
 Adminroutes.delete('/resources/:id',admincontrol.Admaindeleteresource);
 
+//For Events
+Adminroutes.post('/events',admincontrol.Admaincreateevent);
+Adminroutes.get('/events',admincontrol.Admaingetevent);
+Adminroutes.put('/events/:id',admincontrol.Admainupdateevent);
+Adminroutes.get('/events/:id',admincontrol.Admaingeteventbyid);
+Adminroutes.delete('/events/:id',admincontrol.Admaindeleteevent);
+
+//For Volunteer  
+Adminroutes.post('/volunteers',admincontrol.Admaincreatevolunteer);
+Adminroutes.get('/volunteers',admincontrol.Admaingetvolunteer);
+Adminroutes.put('/volunteers/:id',admincontrol.Admainupdatevolunteer);
+Adminroutes.get('/volunteers/:id',admincontrol.Admaingetvolunteerbyid);
+Adminroutes.delete('/volunteers/:id',admincontrol.Admaindeletevolunteer);
 
 export default Adminroutes;

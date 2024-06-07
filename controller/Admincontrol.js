@@ -2,6 +2,9 @@ import * as Gardenscontrol from './Gardenscontrol.js';
 import * as Cropscontrol from './Cropcontrol.js';
 import * as Guidecontrol from './Guidecontrol.js';
 import * as Resourcecontrol from './Resourcecontrol.js';
+import * as Eventcontrol from './Eventcontrol.js';
+import * as Volunteercontrol from './Volunteercontrol.js';
+
 
 // For Gardens
 const Admaincreategarden= (req,res)=>{
@@ -71,6 +74,40 @@ const Admaingetresource= (req,res)=>{
     Resourcecontrol.getallresource(req,res);;
 };
 
+//For Event
+const Admaincreateevent= (req,res)=>{
+    Eventcontrol.createevent(req,res);
+};
+const Admainupdateevent= (req,res)=>{
+    Eventcontrol.updateevent(req,res);
+};
+const Admaindeleteevent= (req,res)=>{
+    Eventcontrol.deleteevent(req,res);
+};
+const Admaingeteventbyid= (req,res)=>{
+    Eventcontrol.geteventbyid(req,res);
+};
+const Admaingetevent= (req,res)=>{
+    Eventcontrol.getallevent(req,res);
+};
+
+// For Volunteer
+const Admaincreatevolunteer= (req,res)=>{
+    Volunteercontrol.createvolunteer(req,res);
+};
+const Admainupdatevolunteer= (req,res)=>{
+    Volunteercontrol.updatevolunteer(req,res);
+};
+const Admaindeletevolunteer= (req,res)=>{
+    Volunteercontrol.deletevolunteer(req,res);
+};
+const Admaingetvolunteerbyid= (req,res)=>{
+    Volunteercontrol.getvolunteerbyid(req,res);
+};
+const Admaingetvolunteer= (req,res)=>{
+    Volunteercontrol.getallvolunteer(req,res);
+};
+
 export {
     //For Garden
     Admaincreategarden,
@@ -96,6 +133,19 @@ export {
     Admaindeleteresource,
     Admaingetresource,
     Admaingetresourcebyid,
+    //For Event
+    Admaincreateevent,
+    Admainupdateevent,
+    Admaindeleteevent,
+    Admaingetevent,
+    Admaingeteventbyid,
+    //For Volunteer
+    Admaincreatevolunteer,
+    Admainupdatevolunteer,
+    Admaindeletevolunteer,
+    Admaingetvolunteer,
+    Admaingetvolunteerbyid,
+
 
 };
 
