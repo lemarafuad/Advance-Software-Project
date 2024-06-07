@@ -39,6 +39,10 @@ AuthRoute.post("/logout", async (req, res) => {
   // make user status inactive from the database
   const email = req.body.email;
   const user = await User.findOne({ where: { email } });
+    console.log('user before', user );
+    user.status = 'offline';
+    console.log('user after', user );
+    await user.save();
   await user.save();
 
   res.clearCookie("token");
