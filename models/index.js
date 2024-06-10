@@ -6,5 +6,9 @@ import Guide from './guide.js';
 import Resource from './resource.js';
 import Volunteer from './volunteer.js';
 import Event from './event.js';
+import VolunteerEvents from './volunteerevents.js';
 
-export {Gardens,Crops,Users,Guide,Resource, Volunteer,Event,sequelize};
+
+Event.belongsToMany(Volunteer, { through: VolunteerEvents});
+Volunteer.belongsToMany(Event, { through: VolunteerEvents });
+export {Gardens,Crops,Users,Guide,Resource, Volunteer,Event,VolunteerEvents,sequelize};

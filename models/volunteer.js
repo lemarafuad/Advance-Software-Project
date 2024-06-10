@@ -1,7 +1,8 @@
+// models/volunteer.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../database/seq.js';
 
-const Volunteer = sequelize.define('volunteer', {
+const Volunteer = sequelize.define('Volunteer', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -14,18 +15,26 @@ const Volunteer = sequelize.define('volunteer', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      isNumeric: true,
+    },
   },
   availability: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-},
-  {
-    tableName: 'volunteer',
-  });
+}, {
+  tableName: 'volunteers',
+  timestamps: true,
+});
 
-export default Volunteer ;
+
+export default Volunteer;
