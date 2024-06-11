@@ -33,7 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+    // Search guides by category
+    const searchCategoryForm = document.getElementById('search-category-form');
+    if (searchCategoryForm) {
+        searchCategoryForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const category = event.target.category.value;
+            fetchGuidesByCategory(category);
+        });
+    }
 });
 
 function fetchGuides() {
@@ -43,7 +51,7 @@ function fetchGuides() {
             const guidesList = document.getElementById('guides-list');
             guidesList.innerHTML = '';
             guides.forEach(guide => {
-                const guideElement = document.createElement('div');
+                const guideElement = document.createElement('tr');
                 guideElement.innerHTML = `
                 <table style="width:100%">
                <tr>
@@ -81,7 +89,6 @@ function addGuide(guide) {
     .catch(error => console.error('Error adding guide:', error));
 }
 
-
 function updateGuide(id, guide) {
     fetch(`http://localhost:3000/api/guides/${id}`, {
         method: 'PUT',
@@ -101,7 +108,6 @@ function updateGuide(id, guide) {
     .catch(error => console.error('Error updating guide:', error));
 }
 
-
 function deleteGuideById() {
     const guideId = document.getElementById('delete-guide-id').value;
     if (guideId) {
@@ -120,4 +126,29 @@ function deleteGuideById() {
     } else {
         console.error('Please enter a valid guide ID');
     }
+}
+
+function fetchGuidesByCategory(category) {
+    fetch(`http://localhost:3000/api/guides/${category}`)
+        .then(response => response.json())
+        .then(guides => {
+            const guidesList = document.getElementById('guides-list');
+            guidesList.innerHTML = '';
+            guides.forEach(guide => {
+                const guideElement = document.createElement('tr');
+                guideElement.innerHTML = `
+                <table style="width:100%">
+               <tr>
+                  <td>${guide.id}</td>
+                  <td>${guide.author}</td>
+                  <td>${guide.title}</td>
+                  <td>${guide.content}</td>
+                  <td>${guide.category}</td>
+               </tr>
+                  </table>
+                `;
+                guidesList.appendChild(guideElement);
+            });
+        })
+        .catch(error => console.error('Error fetching guides:', error));
 }

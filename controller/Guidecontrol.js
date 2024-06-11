@@ -87,10 +87,21 @@ const deleteguide = async (req, res) => {
     }
   };
 
+ const getGuidesByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+        const guides = await guide.findAll({ where: { category } });
+        res.status(200).json(guides);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
   export {
     createguide,
     getallguide,
     getguidebyid,
     updateguide,
-    deleteguide
+    deleteguide,
+    getGuidesByCategory 
   };

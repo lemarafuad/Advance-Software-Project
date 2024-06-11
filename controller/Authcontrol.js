@@ -12,8 +12,8 @@ const createToken = (id, email) => {
 }
 
 export const signup = async(userData) => {    
- const { name, role,status, email, mobile_number, password} = userData;
-
+ const { name, role, email, mobile_number, password} = userData;
+ const status="online";
   try {
 
     if (!name) {
@@ -39,7 +39,8 @@ export const signup = async(userData) => {
       status,
       email,
       mobile_number,
-      password
+      password,
+      status
     });
 
     return { message: `User ${newUser.name} created successfully`, success: true, token: createToken(newUser.id, newUser.email)};

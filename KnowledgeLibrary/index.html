@@ -7,25 +7,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Gardening Guides</h1>
-    <table style="width:100%">
-        <th>id</th>
-        <th>author</th>
-        <th>title</th>
-        <th>content</th>
-        <th>category</th>
-      </tr>
-    </table>
-    <h1 id="guide-title"></h1>
-    <p id="guide-content"></p>
-    <p id="guide-author"></p>
-    <div id="guides-list"></div>
-
-    <h2>Delete Guide</h2>
-    <input type="text" id="delete-guide-id" placeholder="Enter Guide ID">
-    <button onclick="deleteGuideById()">Delete Guide</button>
-    <button onclick="window.location.href='edit-guide.html'">Update Guide</button>
-    <button onclick="window.location.href='add-guide.html'">Add New Guide</button>
+    <div class="container">
+        <header>
+            <h1>🌸 Gardening Guides 🌿</h1>
+        </header>
+        <main>
+            <section class="guides-section">
+                <h2>All Guides</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guides-list">
+                        <!-- Guides will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </section>
+            <section class="guide-details">
+                <h2 id="guide-title"></h2>
+                <p id="guide-content"></p>
+                <p id="guide-author"></p>
+            </section>
+            <section class="actions">
+                <h2>Manage Guides</h2>
+                <div class="actions-group">
+                    <input type="text" id="delete-guide-id" placeholder="Enter Guide ID">
+                    <button onclick="deleteGuideById()">Delete Guide</button>
+                </div>
+                <div class="actions-group">
+                    <button onclick="window.location.href='edit-guide.html'">Update Guide</button>
+                    <button onclick="window.location.href='add-guide.html'">Add New Guide</button>
+                </div>
+                <form id="search-category-form">
+                    <input type="text" id="search-category" name="category" placeholder="Enter category" required>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+        </main>
+    </div>
     <script src="scripts.js"></script>
 </body>
 </html>
