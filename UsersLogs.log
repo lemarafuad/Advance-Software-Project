@@ -1,0 +1,10 @@
+{"level":"info","message":"Get User with id 1 successfully","timestamp":"2024-06-11T19:37:54.624Z"}
+{"level":"info","message":"Get All Tools successfully","timestamp":"2024-06-11T19:39:42.707Z"}
+{"level":"error","message":"notNull Violation: UsersTools.status cannot be null","timestamp":"2024-06-11T19:42:24.010Z"}
+{"level":"error","message":"notNull Violation: UsersTools.status cannot be null","timestamp":"2024-06-11T19:45:01.238Z"}
+{"level":"error","message":"notNull Violation: UsersTools.status cannot be null","timestamp":"2024-06-11T19:47:30.969Z"}
+{"level":"error","message":"Unknown column 'UsersTools.UserId' in 'where clause'","timestamp":"2024-06-11T19:51:56.191Z"}
+{"level":"error","message":"notNull Violation: UsersTools.status cannot be null","timestamp":"2024-06-11T20:05:45.625Z"}
+{"level":"info","message":"Create User Tool Relation successfully","timestamp":"2024-06-11T20:07:47.316Z"}
+{"level":"error","message":"Some error occurred while creating the Relation.","timestamp":"2024-06-11T21:29:41.379Z"}
+{"level":"error","message":"Some error occurred while creating the Relation.","timestamp":"2024-06-11T21:37:49.573Z"}

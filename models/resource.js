@@ -19,6 +19,10 @@ const resource = sequelize.define('Resource', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  price: {
+    type: DataTypes.DOUBLE,
+    allowNull: false
+},
 },
 {
   tableName: 'Resource',

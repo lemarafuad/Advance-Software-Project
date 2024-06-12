@@ -1,96 +1,106 @@
-import resource from "../models/resource.js";
 
-const createresource = async(req,res)=>{
-    try{
-      console.log('Request Headers:', req.headers);
-    console.log('Request Body:', req.body); // Log the entire request body
+import Tool from '../models/resource.js';
+import logger from "../logger.js";
 
-      const {type, name, quantity} = req.body;
-    if (!type || ! name || !quantity){
-        return res.status(400).json({message: "All fields are required" });
-    }
-    const reso = await resource.create({type,name,quantity});
-    res.status(201).send(reso);
-    console.log(`Add resource successfully`)
-} catch (error) {
+const createTool = async (req, res) => {
+  try {
+    const { name, price } = req.body;
+    const tool = await Tool.create({ name, price });
+    res.status(201).send(tool);
+    logger.info(`Create Tool successfully`)
+  } catch (error) {
     res.status(500).send({
-      message: error.message || 'Some error occurred while creating the resource.'
+      message: error.message || 'Some error occurred while creating the Tool.'
     });
+    logger.error(error.message || 'Some error occurred while creating the Tool.')
   }
 };
 
-const updateresource = async (req,res)=>{
-    try{
-      const [idupdate] = await resource.update(req.body, { where: { id: req.params.id } });
-      if (idupdate == 1) {
-        res.send({message: 'resource was updated successfully.'});
-      }else {
-        res.status(404).send({ message: `Cannot update resource with id=${req.params.id}. resource not found!` });
-      }
-  
-    }catch(error){
-      res.status(500).send({
-        message: `Cannot update resource with id=${req.params.id}. Please check the id you provided!`,
-        error: error.message
-      });
-    }
-  
-  };
-
-  const getallresource= async (req,res)=>{
-    try{
-    const allreso= await resource.findAll();
-    res.status(200).send(allreso);
-    }catch(error){
-      res.status(500).send({
-        message: error.message || 'Some error occurred while retrieving resource.'
-      });
-    }
-  };
-
-  const getresourcebyid= async (req,res)=>{
-    try{
-    const resourceid = await resource.findByPk(req.params.id);
-    if(resourceid)
-      {
-        res.status(200).send(resourceid);
-      }
-      else{
-        res.status(404).send({
-          message: `Cannot find resource with id=${req.params.id}.`
-        });
-      }
-    }
-    catch(error){
-      res.status(500).send({
-        message: error.message || 'Error retrieving resource with id=' + req.params.id
-      });
-    }
-  };
-
-  const deleteresource= async (req,res)=> {
-    try{
-      const id = req.params.id;
-      const iddelete = await resource.destroy({ where: { id: id } });
-      if (iddelete == 1) {
-        res.send({message: 'resource was deleted successfully.'});
-    }else {
-      res.status(404).send({ message: `Cannot delete resource with id=${id}. resource not found!` });
-    }
-    }
-    catch(error)
-    {
-      res.status(500).send({
-        message: `Cannot delete resource with id=${req.params.id}. Please check the id you provided!`,
-        error: error.message
-      });
-    };
+const getAllTools = async (req, res) => {
+  try {
+    const tools = await Tool.findAll();
+    res.status(200).send(tools);
+    logger.info(`Get All Tools successfully`)
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || 'Some error occurred while retrieving tools.'
+    });
+    logger.error(error.message || 'Some error occurred while retrieving tools.')
   }
-  
-    export {
-      createresource,
-      getallresource,
-      updateresource,
-      deleteresource,
-      getresourcebyid
-    };
+};
+
+const getToolById = async (req, res) => {
+  try {
+    const tool = await Tool.findByPk(req.params.id);
+    if (tool) {
+      res.status(200).send(tool);
+      logger.info(`Get Tool with id ${req.params.id} successfully`)
+    } else {
+      res.status(404).send({
+        message: `Cannot find Tool with id=${req.params.id}.`
+      });
+      logger.info(`Cannot find Tool with id=${req.params.id}.`)
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || 'Error retrieving Tool with id=' + req.params.id
+    });
+    logger.error(error.message || 'Error retrieving Tool with id=' + req.params.id)
+  }
+};
+
+const updateTool = async (req, res) => {
+  try {
+    const num = await Tool.update(req.body, {
+      where: { tool_id: req.params.id }
+    });
+    if (num == 1) {
+      res.send({
+        message: 'Tool was updated successfully.'
+      });
+      logger.info(`Tool with id ${req.params.id} was updated successfully.`)
+    } else {
+      res.send({
+        message: `Cannot update Tool with id=${req.params.id}. Maybe Tool was not found or req.body is empty!`
+      });
+      logger.info(`Cannot update Tool with id=${req.params.id}. Maybe Tool was not found or req.body is empty!`)
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: 'Error updating Tool with id=' + req.params.id
+    });
+    logger.error('Error updating Tool with id=' + req.params.id)
+  }
+};
+
+const deleteTool = async (req, res) => {
+  try {
+    const num = await Tool.destroy({
+      where: { tool_id: req.params.id }
+    });
+    if (num == 1) {
+      res.send({
+        message: 'Tool was deleted successfully!'
+      });
+      logger.info(`Tool with id ${req.params.id} was deleted successfully!`)
+    } else {
+      res.send({
+        message: `Cannot delete Tool with id=${req.params.id}. Maybe Tool was not found!`
+      });
+      logger.info(`Cannot delete Tool with id=${req.params.id}. Maybe Tool was not found!`)
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: 'Could not delete Tool with id=' + req.params.id
+    });
+    logger.error('Could not delete Tool with id=' + req.params.id)
+  }
+};
+
+export {
+  createTool,
+  getAllTools,
+  getToolById,
+  updateTool,
+  deleteTool
+};
