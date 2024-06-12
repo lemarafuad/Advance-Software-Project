@@ -1,5 +1,6 @@
 import Partner from '../models/partnership.js';
 import models from '../models/index.js';
+import garden from '../models/gardens.js';
 
 const createPartner = async (req, res) => {
   try {
@@ -88,8 +89,8 @@ const registerInEvent = async (req, res) => {
 
 const checkAvailableGarden = async (req, res) => {
   try {
-    const gardens = await models.Garden.findAll({ where: { available: true } });
-    res.status(200).json(gardens);
+    const gardens = await garden.findAll({ where: { available: true } });
+    res.status(200).send(gardens);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

@@ -1,5 +1,5 @@
 // controllers/volunteerController.js
-
+/*
 import Volunteer from '../models/volunteer.js';
 import Event from '../models/event.js';
 import VolunteerEvents from '../models/volunteerevents.js';
@@ -33,4 +33,4 @@ import VolunteerEvents from '../models/volunteerevents.js';
 
 export {
     addVolunteerToEvent
-  };
+  };*/

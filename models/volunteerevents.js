@@ -5,11 +5,15 @@ import Volunteer from './volunteer.js';
 import Event from './event.js';
 
 const VolunteerEvents = sequelize.define('VolunteerEvents', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   VolunteerId: {
     type: DataTypes.INTEGER,
-   // primaryKey: true,
     references: {
-      model: Volunteer, // exact table name for Volunteer model
+      model: Volunteer,
       key: 'id',
     },
     onUpdate: 'CASCADE',
@@ -17,9 +21,8 @@ const VolunteerEvents = sequelize.define('VolunteerEvents', {
   },
   EventId: {
     type: DataTypes.INTEGER,
-  //  primaryKey: true,
     references: {
-      model: Event, // exact table name for Event model
+      model: Event,
       key: 'id',
     },
     onUpdate: 'CASCADE',
@@ -30,15 +33,10 @@ const VolunteerEvents = sequelize.define('VolunteerEvents', {
   timestamps: true,
 });
 
-VolunteerEvents.belongsTo(Volunteer, { foreignKey: 'VolunteerId', as: 'VolunteerDetails' });
-Volunteer.hasMany(VolunteerEvents, { foreignKey: 'VolunteerId', as: 'VolunteerEventList' });
-
-VolunteerEvents.belongsTo(Event, { foreignKey: 'EventId', as: 'EventDetails' });
-Event.hasMany(VolunteerEvents, { foreignKey: 'EventId', as: 'EventVolunteerList' });
-/*VolunteerEvents.belongsTo(Volunteer, { foreignKey: 'VolunteerId' });
+VolunteerEvents.belongsTo(Volunteer, { foreignKey: 'VolunteerId' });
 Volunteer.hasMany(VolunteerEvents, { foreignKey: 'VolunteerId' });
 
 VolunteerEvents.belongsTo(Event, { foreignKey: 'EventId' });
-Event.hasMany(VolunteerEvents, { foreignKey: 'EventId' });*/
+Event.hasMany(VolunteerEvents, { foreignKey: 'EventId' });
 
 export default VolunteerEvents;
