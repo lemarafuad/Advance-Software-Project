@@ -1,44 +1,99 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h1 {
-    color: #333;
+.container {
+    width: 80%;
+    max-width: 1000px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
+header {
+    background-color: #6a994e;
+    color: white;
+    padding: 1rem;
+    text-align: center;
 }
 
-input, textarea {
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+h2 {
+    color: #2c6e49;
+    margin-top: 0;
+}
+
+table {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
 }
-table, th, td {
-    border:1px solid black;
-  }
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #5cb85c;
-    color: #fff;
-    border: none;
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #6a994e;
+    color: white;
+}
+
+.actions {
+    margin-top: 2rem;
+}
+
+.actions-group {
+    margin-bottom: 1rem;
+}
+
+.actions-group input, .actions-group button {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.actions-group button {
+    background-color: #6a994e;
+    color: white;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #4cae4c;
+.actions-group button:hover {
+    background-color: #558b3f;
 }
 
-#guides-list {
-    margin-top: 20px;
-}
-
-.guide-item {
+form input, form button {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 5px;
     border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 10px;
+}
+
+form button {
+    background-color: #6a994e;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #558b3f;
 }

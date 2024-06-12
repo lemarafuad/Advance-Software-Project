@@ -4,6 +4,7 @@ import * as Guidecontrol from './Guidecontrol.js';
 import * as Resourcecontrol from './Resourcecontrol.js';
 import * as Eventcontrol from './Eventcontrol.js';
 import * as Volunteercontrol from './Volunteercontrol.js';
+import * as PartnerShipcontrol from './partnershipcontrol.js';
 
 
 // For Gardens
@@ -54,7 +55,10 @@ const Admaingetguidebyid= (req,res)=>{
     Guidecontrol.getguidebyid(req,res);
 };
 const Admaingetguide= (req,res)=>{
-    Guidecontrol.getallguide(req,res);;
+    Guidecontrol.getallguide(req,res);
+};
+const AdmaingetCategory= (req,res)=>{
+    Guidecontrol.getGuidesByCategory(req,res);
 };
 
 //For Resources
@@ -108,6 +112,23 @@ const Admaingetvolunteer= (req,res)=>{
     Volunteercontrol.getallvolunteer(req,res);
 };
 
+//For PartnerShip
+const AdmaincreatePartnerShip= (req,res)=>{
+    PartnerShipcontrol.createPartner(req,res);
+};
+const AdmainupdatePartnerShip= (req,res)=>{
+    PartnerShipcontrol.updatePartner(req,res);
+};
+const AdmaindeletePartnerShip= (req,res)=>{
+    PartnerShipcontrol.deletePartner(req,res);
+};
+const AdmaingetPartnerShipbyid= (req,res)=>{
+    PartnerShipcontrol.getPartnerById(req,res);
+};
+const AdmaingetPartnerShip= (req,res)=>{
+    PartnerShipcontrol.getPartners(req,res);
+};
+
 export {
     //For Garden
     Admaincreategarden,
@@ -127,6 +148,7 @@ export {
     Admaindeleteguide,
     Admaingetguide,
     Admaingetguidebyid,
+    AdmaingetCategory,
     // For Crop
     Admaincreateresource,
     Admainupdateresource,
@@ -145,6 +167,13 @@ export {
     Admaindeletevolunteer,
     Admaingetvolunteer,
     Admaingetvolunteerbyid,
+    //For  PartnerShip
+    AdmaincreatePartnerShip,
+    AdmainupdatePartnerShip,
+    AdmaindeletePartnerShip,
+    AdmaingetPartnerShip,
+    AdmaingetPartnerShipbyid,
+
 
 
 };

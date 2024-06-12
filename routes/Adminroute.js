@@ -23,6 +23,8 @@ Adminroutes.get('/guides',admincontrol.Admaingetguide);
 Adminroutes.put('/guides/:id',admincontrol.Admainupdateguide);
 Adminroutes.get('/guides/:id',admincontrol.Admaingetguidebyid);
 Adminroutes.delete('/guides/:id',admincontrol.Admaindeleteguide);
+Adminroutes.get('/guides/category/:category',admincontrol.AdmaingetCategory);
+
 
 //For Resource
 Adminroutes.post('/resources',admincontrol.Admaincreateresource);
@@ -44,5 +46,12 @@ Adminroutes.get('/volunteers',admincontrol.Admaingetvolunteer);
 Adminroutes.put('/volunteers/:id',admincontrol.Admainupdatevolunteer);
 Adminroutes.get('/volunteers/:id',admincontrol.Admaingetvolunteerbyid);
 Adminroutes.delete('/volunteers/:id',admincontrol.Admaindeletevolunteer);
+
+//For PartnerShip  
+Adminroutes.post('/partnership',admincontrol.AdmaincreatePartnerShip);
+Adminroutes.get('/partnership',admincontrol.AdmaingetPartnerShip);
+Adminroutes.put('/partnership/:id',admincontrol.AdmainupdatePartnerShip);
+Adminroutes.get('/partnership/:id',admincontrol.AdmaingetPartnerShipbyid);
+Adminroutes.delete('/partnership/:id',admincontrol.AdmaindeletePartnerShip);
 
 export default Adminroutes;

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import Garden from '../models/gardens.js';
 
 // Authentication middleware
 const authenticate = async (req, res, next) => {
@@ -35,19 +36,26 @@ const authenticate = async (req, res, next) => {
 
 // Role check middleware
 const checkAdminRole = (req, res, next) => {
-  const userRole = res.locals.User?.role;
-  const userstatus = res.locals.User?.status;
-  if (userRole === 'admin') {
-    if (userstatus === 'online') {
-    next();
-    }
-    else{
-      res.status(401).send("admin,please Login!");
+  const user = res.locals.User;
+
+  if (!user) {
+    return res.status(401).json({ message: "User information is not available" });
+  }
+
+  const { role, status } = user;
+
+  if (role === 'admin') {
+    if (status === 'online') {
+      return next();
+    } else {
+      return res.status(401).json({ message: "Admin, please login!" });
     }
   } else {
-    res.status(401).send("You are Unauthorized!");
+    return res.status(401).json({ message: "You are unauthorized!" });
   }
 };
+
+
 /*
 //او حطها جوا ال checkAdmin
 const checklogout=(req,res,next)=>{

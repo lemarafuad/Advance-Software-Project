@@ -13,10 +13,8 @@ AuthRoute.post("/signup", async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(201).send(response);
-    //logger.info(response)
   } else {
     res.status(400).send(response);
-    //logger.error(response)
   }
 });
 
@@ -25,7 +23,7 @@ AuthRoute.post('/login', async (req, res) => {
     if(response.success){
         res.cookie('token', response.token, { httpOnly: true , maxAge: 7 * 24 * 60 * 60 * 1000});
         res.cookie('Role', response.role, { maxAge: 7 * 24 * 60 * 60 * 1000});
-        
+        response.status = 'online';
         res.status(200).send(response);
       //  console.log(info(response))
     }
@@ -36,19 +34,14 @@ AuthRoute.post('/login', async (req, res) => {
 });
 
 AuthRoute.post("/logout", async (req, res) => {
-  // make user status inactive from the database
   const email = req.body.email;
   const user = await User.findOne({ where: { email } });
-    console.log('user before', user );
-    user.status = 'offline';
-    console.log('user after', user );
-    await user.save();
+  user.status = "offline";
   await user.save();
 
   res.clearCookie("token");
   console.log(req.cookies["token"]);
   res.status(201).send("Logged out successfully");
-  console.log(info("Logged out successfully"))
 });
 
 AuthRoute.post("/forgetpassword", forgetPassword);
