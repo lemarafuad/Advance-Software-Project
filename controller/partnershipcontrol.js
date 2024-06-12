@@ -1,6 +1,7 @@
 import Partner from '../models/partnership.js';
 import models from '../models/index.js';
 import garden from '../models/gardens.js';
+import Event from '../models/event.js';
 
 const createPartner = async (req, res) => {
   try {
@@ -61,21 +62,25 @@ const deletePartner = async (req, res) => {
   }
 };
 
- const createEvent = async (req, res) => {
+const createEvent = async (req, res) => {
   try {
-    const { title, description, date, location } = req.body;
+    const { title, description, date, location, gardenId, partnerShipId } = req.body;
 
-    const availableGarden = await models.Garden.findOne({ where: { location, available: true } });
+    const availableGarden = await garden.findOne({ where: { id: gardenId, location, available: "true" } });
     if (!availableGarden) {
       return res.status(400).json({ error: 'No available garden at the specified location' });
     }
 
-    const event = await models.Event.create({ title, description, date, location });
+    const event = await Event.create({ title, description, date, location, gardenId, partnerShipId });
+
+    await availableGarden.update({ available: "false" });
+
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 const registerInEvent = async (req, res) => {
   try {
@@ -89,7 +94,7 @@ const registerInEvent = async (req, res) => {
 
 const checkAvailableGarden = async (req, res) => {
   try {
-    const gardens = await garden.findAll({ where: { available: true } });
+    const gardens = await garden.findAll({ where: { available: "true" } });
     res.status(200).send(gardens);
   } catch (error) {
     res.status(400).json({ error: error.message });

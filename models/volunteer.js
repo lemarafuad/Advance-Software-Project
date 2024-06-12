@@ -15,7 +15,7 @@ const Volunteer = sequelize.define('Volunteer', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    //unique: true,
     validate: {
       isEmail: true,
     },
