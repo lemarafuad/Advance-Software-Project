@@ -34,10 +34,6 @@ const showAllResources = (req, res)=> {
   getAllresources(req, res);
 }
 
-const addResource = (req, res)=> {
-  //resources(req, res);
-}
-
 // Show sharing resources
 const getsharingresources = (req, res) =>{
   showSharingresources(req, res);
@@ -68,32 +64,8 @@ const deleteresource = (req, res) => {
   deleteUserresourceRelation(req, res);
 }
 
-// // Show All events
-// const getAllEvent = (req, res) => {
-//   getAllEvents(req, res);
-// }
 
-// // Show specific event 
-// const ShowEvent = (req, res) => {
-//   getEventById(req,res);
-// }
-
-// // Show all event im registered in (user-event relatiom)
-// const showMyEvents = (req, res) => {
-//   getEventsByUserId(req, res)
-// }
-
-// // Register in specific event (create user_event relation)
-// const registerInEvent = (req, res) => {
-//   createUserEventRelation(req, res);
-// }
-
-// // Delete register in specfic event (delete user-event relation )
-// const deleteRegister = (req, res) => {
-//   deleteUserEventRelation(req, res);
-// }
-
-export {showAllGardens,showGarden,showCrop,showAllCropS,addResource,showAllResources, updateMyProfile, getMyProfile ,getsharingresources
+export {showAllGardens,showGarden,showCrop,showAllCropS,showAllResources, updateMyProfile, getMyProfile ,getsharingresources
 ,getMyresource,addresource,addNewresource,deleteresource,updateresource
 
 };
