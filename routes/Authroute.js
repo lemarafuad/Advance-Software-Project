@@ -25,11 +25,11 @@ AuthRoute.post('/login', async (req, res) => {
         res.cookie('Role', response.role, { maxAge: 7 * 24 * 60 * 60 * 1000});
         response.status = 'online';
         res.status(200).send(response);
-      //  console.log(info(response))
+ 
     }
     else{
         res.status(400).send(response);
-       // console.log(error(response))
+
     }
 });
 

@@ -90,10 +90,10 @@ const registerInEvent = async (req, res) => {
     if(!volunteerupdate){
       return res.status(400).json({ error: 'volunteer is not available' });
     }
-    const volunteerEvent = await models.VolunteerEvents.create({ VolunteerId: VolunteerId, EventId:EventId });
+    const volunteerEventd = await volunteerEvent.create({ VolunteerId: VolunteerId, EventId:EventId });
 
     await volunteerupdate.update({ availability: "false" });
-    res.status(201).json(volunteerEvent);
+    res.status(201).json(volunteerEventd);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
