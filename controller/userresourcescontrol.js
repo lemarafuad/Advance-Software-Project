@@ -1,22 +1,34 @@
-import UsersTools from "../models/userresource.js";
-import Tool from "../models/resource.js";
+import Usersresources from "../models/userresource.js";
+import resource from "../models/resource.js";
 
-const createUserToolRelation = async (req, res) => {
-    try {
-      const UserToolRelation = await UsersTools.create(req.body);
-      res.status(201).send(UserToolRelation);
-    } catch(error){
+
+const createUserresourceRelation = async (req, res) => {
+    try{
+        console.log('Request Headers:', req.headers);
+      console.log('Request Body:', req.body); // Log the entire request body
+    
+      const { type, name, quantity, price,end_date} = req.body;
+    
+      if (!type || !name || !quantity || !price|| !end_date) {
+        console.log('Missing fields:', {type, name, quantity, price,end_date});
+        return res.status(400).json({ message: "All fields are required" });
+      }
+    
+      const reso = await Usersresources.create({type, name, quantity, price,end_date});
+      res.status(201).send(reso);
+      console.log(`Add resource successfully in userres`)
+    } catch (error) {
       res.status(500).send({
-        message: error.message || 'Some error occurred while creating the Relation.'
-      })
+        message: error.message || 'Some error occurred while creating the resource.'
+      });
+      console.log(error.message || 'Some error occurred while creating the resource.')
     }
-
 };
 
-const showSharingTools = async (req, res) => {
+const showSharingresources = async (req, res) => {
     try {
-      const UserToolRelations = await UsersTools.findAll();
-      res.status(200).send(UserToolRelations);
+      const UserresourceRelations = await Usersresources.findAll();
+      res.status(200).send(UserresourceRelations);
     } catch (error) {
       res.status(500).send({
         message: error.message || 'Some error occurred while retrieving Relations.'
@@ -24,88 +36,88 @@ const showSharingTools = async (req, res) => {
     }
   };
 
-  //Get Tools for spesific User.
-  const  geToolsForUserByUserId = async (req, res) => {
+  //Get resources for spesific User.
+  const  geresourcesForUserByUserId = async (req, res) => {
     try {
       const{id} = req.params;
-      const toolsIds = await UsersTools.findAll({
-       // attributes: ["tool_id"],
+      const resourcesIds = await Usersresources.findAll({
+       // attributes: ["resource_id"],
         where: {UserId: id}
       });
-      const toolsNames = await Promise.all(toolsIds.map(async (userTool) =>{
-        const toolId = userTool.ToolToolId;
-        //get tool name for each id..
-        const toolName = await Tool.findByPk( toolId, {
+      const resourcesNames = await Promise.all(resourcesIds.map(async (userresource) =>{
+        const resourceId = userresource.resourceresourceId;
+        //get resource name for each id..
+        const resourceName = await resource.findByPk( resourceId, {
           attributes: ["name"]
         }); 
-        return  {name: toolName.name, status:userTool.status };
+        return  {name: resourceName.name, status:userresource.status };
        }))
   
-      if (toolsNames.length) {
-        res.status(200).send({toolsNames: toolsNames});
+      if (resourcesNames.length) {
+        res.status(200).send({resourcesNames: resourcesNames});
       } else {
         res.status(404).send({
-          message: `The user with id=${id} has not add any Tools yet.`
+          message: `The user with id=${id} has not add any resources yet.`
         });
       }
     } catch (error) {
       res.status(500).send({
-        message: error.message || 'Error retrieving Tools for user with id=' + id
+        message: error.message || 'Error retrieving resources for user with id=' + id
       });
     }
   };
   
-  //Get all users with specific Tool 
-  const  getUsersByToolId = async (req, res) => {
+  //Get all users with specific resource 
+  const  getUsersByresourceId = async (req, res) => {
     const{id} = req.params;
     try {
-      const users = await UsersTools.findAll({
+      const users = await Usersresources.findAll({
         where: {
-          ToolToolId: id
+          resourceresourceId: id
         }
       })
       if (users.length) {
         res.status(200).send(users);
       } else {
         res.status(404).send({
-          message: `There is no users have Tool with id=${id}.`
+          message: `There is no users have resource with id=${id}.`
         });
       }
     } catch (error) {
       res.status(500).send({
-        message: error.message || 'Error retrieving users for Tool with id=' + id
+        message: error.message || 'Error retrieving users for resource with id=' + id
       });
     }
   };
 
-  const updateUserTool = async (req, res) => {
+  const updateUserresource = async (req, res) => {
     const{id} = req.params;
     try {
-      const num = await UsersTools.update(req.body, {
-        where: { ToolToolId: id }
+      const num = await Usersresources.update(req.body, {
+        where: { resourceresourceId: id }
       });
       if (num == 1) {
         res.send({
-          message: 'Tool was updated successfully.'
+          message: 'resource was updated successfully.'
         });
       } else {
         res.send({
-          message: `Cannot update Tool with id=${id}. Maybe Tool was not found or req.body is empty!`
+          message: `Cannot update resource with id=${id}. Maybe resource was not found or req.body is empty!`
         });
       }
     } catch (error) {
       res.status(500).send({
-        message: 'Error updating Tool with id=' + id
+        message: 'Error updating resource with id=' + id
       });
     }
   };
 
-  const deleteUserToolRelation = async (req, res) => {
+  const deleteUserresourceRelation = async (req, res) => {
     const{id} = req.params
     try {
-      const num = await UsersTools.destroy({
+      const num = await Usersresources.destroy({
         where: { 
-          users_tools_id: id 
+          users_resources_id: id 
         }
       });
       if (num == 1) {
@@ -125,10 +137,10 @@ const showSharingTools = async (req, res) => {
   };
 
 export {
-    createUserToolRelation,
-    showSharingTools,
-    getUsersByToolId,
-    geToolsForUserByUserId,
-    updateUserTool,
-    deleteUserToolRelation
+    createUserresourceRelation,
+    showSharingresources,
+    getUsersByresourceId,
+    geresourcesForUserByUserId,
+    updateUserresource,
+    deleteUserresourceRelation
 };

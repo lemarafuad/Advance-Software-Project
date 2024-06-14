@@ -13,8 +13,6 @@ router.use("/admin", AdminRoutes,authenticate,checkAdminRole);
 //router.use("/volunteer",VolunteerRoutes,authenticate);
 router.use("/partnership",PartneShipRoutes);
 router.use("/api",weatherRoutes);
-
-
 router.use("/user",AllUserRoutes);
 
 export default router;
