@@ -1,8 +1,8 @@
 import Partner from '../models/partnership.js';
-import models from '../models/index.js';
 import garden from '../models/gardens.js';
 import Event from '../models/event.js';
 import Volunteer from '../models/volunteer.js';
+import volunteerEvent from '../models/volunteerevents.js';
 
 const createPartner = async (req, res) => {
   try {
@@ -108,6 +108,19 @@ const checkAvailableGarden = async (req, res) => {
   }
 };
 
+const getVolunteerCountForEvent = async (req, res) => {
+  try {
+    const { EventId } = req.params;
+    
+    const volunteerCount = await volunteerEvent.count({
+      where: { EventId }
+    });
+    
+    res.status(200).json({ EventId, volunteerCount });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 
 export{
@@ -118,5 +131,6 @@ export{
     deletePartner,
     createEvent,
     registerInEvent,
-    checkAvailableGarden
+    checkAvailableGarden,
+    getVolunteerCountForEvent
 };
