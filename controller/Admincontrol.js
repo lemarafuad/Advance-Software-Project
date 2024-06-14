@@ -72,10 +72,10 @@ const Admaindeleteresource= (req,res)=>{
     Resourcecontrol.deleteresource(req,res);
 };
 const Admaingetresourcebyid= (req,res)=>{
-    Resourcecontrol.getresourcebyid(req,res);
+    Resourcecontrol.getresourceById(req,res);
 };
 const Admaingetresource= (req,res)=>{
-    Resourcecontrol.getallresource(req,res);;
+    Resourcecontrol.getAllresources(req,res);;
 };
 
 //For Event
