@@ -54,18 +54,25 @@ const checkAdminRole = (req, res, next) => {
     return res.status(401).json({ message: "You are unauthorized!" });
   }
 };
+const checkUserRole = (req, res, next) => {
+  const user = res.locals.User;
 
-
-/*
-//او حطها جوا ال checkAdmin
-const checklogout=(req,res,next)=>{
-  const userRole = res.locals.User?.state;
-
-  if (userRole === 'active') {
-    next();
-  } else {
-    res.status(401).send("admin, You are logout !");
+  if (!user) {
+    return res.status(401).json({ message: "User information is not available" });
   }
-}*/
 
-export { authenticate, checkAdminRole };
+  const { role, status } = user;
+
+  if (role === 'user') {
+    if (status === 'online') {
+      return next();
+    } else {
+      return res.status(401).json({ message: "User, please login!" });
+    }
+  } else {
+    return res.status(401).json({ message: "You are unauthorized!" });
+  }
+};
+
+
+export { authenticate, checkAdminRole,checkUserRole };
