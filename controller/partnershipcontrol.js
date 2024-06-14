@@ -2,6 +2,7 @@ import Partner from '../models/partnership.js';
 import models from '../models/index.js';
 import garden from '../models/gardens.js';
 import Event from '../models/event.js';
+import Volunteer from '../models/volunteer.js';
 
 const createPartner = async (req, res) => {
   try {
@@ -85,7 +86,13 @@ const createEvent = async (req, res) => {
 const registerInEvent = async (req, res) => {
   try {
     const { VolunteerId, EventId } = req.body;
+    const volunteerupdate=await Volunteer.findOne({where:{id : VolunteerId , availability: "yes" }});
+    if(!volunteerupdate){
+      return res.status(400).json({ error: 'volunteer is not available' });
+    }
     const volunteerEvent = await models.VolunteerEvents.create({ VolunteerId: VolunteerId, EventId:EventId });
+
+    await volunteerupdate.update({ availability: "false" });
     res.status(201).json(volunteerEvent);
   } catch (error) {
     res.status(400).json({ error: error.message });
